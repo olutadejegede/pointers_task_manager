@@ -2,42 +2,44 @@
 #include <string>
 using namespace std;
 
-////////////////////////////////////////////////////////
+//-----------------------------------------------------/
 // Program: Task Manager (pointers)                    /
 // Author: Olutade Jegede                              /
 // Class: Data Structures & Algorithms                 /
-////////////////////////////////////////////////////////
+//-----------------------------------------------------/
 
-////////////////////////////////////////////////////////
+//-----------------------------------------------------/
 // LinkedList class with functions:                    /  
-////////////////////////////////////////////////////////
+//-----------------------------------------------------/
 
 class LinkedList
 {
-    private:
-        struct Node
-        {
-            string data;
-            Node *next;
-        };
-
-        Node* head;
-        Node* current;
-        Node* temp;
-        int listLength;
-
     public:
-        LinkedList ();
-        void insertNode (string addData, int pos);
-        void deleteNode (int pos);
-        void displayList ();
-        void displayReverseList ();
-        int getLength();
+            LinkedList ();
+            void insertNode (string addData, int pos);
+            void deleteNode (int pos);
+            void displayList ();
+            void displayReverseList ();
+            int getLength();
+            
+    protected:
+        private:
+                struct Node
+                {
+                    string data;
+                    Node *next;
+                };
+                typedef Node* Node_ptr;
+                
+                Node_ptr head;
+                Node_ptr current;
+                Node_ptr temp;
+                int listLength;
 };
 
-////////////////////////////////////////////////////////
+//-----------------------------------------------------/
 // Function prototypes:                                /  
-////////////////////////////////////////////////////////
+//-----------------------------------------------------/
 
 void displayMenu ();
 void addTask (LinkedList &Task, string taskname, int position);
@@ -50,9 +52,9 @@ bool checkPosition ( LinkedList &Task, int position);
 bool isValid (string task);
 string capitalize(string task);
 
-////////////////////////////////////////////////////////
+//-----------------------------------------------------/
 // Main function:                                      /  
-////////////////////////////////////////////////////////
+//-----------------------------------------------------/
 
 int main ()
 {
@@ -77,38 +79,45 @@ int main ()
         switch(choice)
         {
             case 1:
-                cout << endl << "Enter task name and its position (seperate with one space) ->";
-                cin >> taskname >> position;
-                addTask (Task, capitalize(taskname), position);
-                break;
+                    cout << endl << "Enter task name and its position (seperate with one space) ->";
+                    cin >> taskname >> position;
+                    addTask (Task, capitalize(taskname), position);
+                    break;
+
             case 2:
-                cout << endl << "Enter a position to delete ->";
-                cin >> position;
-                deleteTask(Task, position);
-                break;
+                    cout << endl << "Enter a position to delete ->";
+                    cin >> position;
+                    deleteTask(Task, position);
+                    break;
+
             case 3:
-                printCount(Task);
-                break;
+                    printCount(Task);
+                    break;
+
             case 4:
-                displayTasks(Task);
-                break;
+                    displayTasks(Task);
+                    break;
+
             case 5:
-                displayReverseTasks(Task);
-                break;
+                    displayReverseTasks(Task);
+                    break;
+
             case 6:
-                terminateProgram ();
-                break;
+                    terminateProgram ();
+                    break;
+                    
             default:
-                cout << endl << "Enter a digit 1 - 6!" << endl;
+                    cout << endl << "Enter a digit 1 - 6!" << endl;
         }
     }
     while (choice != 6);
+
     return 0;
 }
 
-////////////////////////////////////////////////////////
-// LinkedList class function to intialize variables:   /  
-////////////////////////////////////////////////////////
+//-----------------------------------------------------/
+// LinkedList constructor:                             /  
+//-----------------------------------------------------/
 
 LinkedList::LinkedList()
 {
@@ -118,13 +127,13 @@ LinkedList::LinkedList()
     listLength = 0;
 }
 
-////////////////////////////////////////////////////////
+//-----------------------------------------------------/
 // LinkedList class function to add to the list:       /  
-////////////////////////////////////////////////////////
+//-----------------------------------------------------/
 
  void LinkedList::insertNode (string addData, int pos)
  {
-    Node* n = new Node;
+    Node_ptr n = new Node;
     n->data = addData;
     n->next = NULL; 
     pos = pos - 1;
@@ -138,10 +147,12 @@ LinkedList::LinkedList()
     else
     {
         current = head;
+
         for (int i = 0; i < pos-1; i++) 
         {
             current = current->next;
         }
+
         n->next = current->next;
         current->next = n;
     }
@@ -149,13 +160,13 @@ LinkedList::LinkedList()
     listLength++;
  }
 
-////////////////////////////////////////////////////////
+//-----------------------------------------------------/
 // LinkedList class function to delete from the list:  /  
-////////////////////////////////////////////////////////
+//-----------------------------------------------------/
 
  void LinkedList::deleteNode (int pos)
  {
-    Node* delPtr = NULL;
+    Node_ptr delPtr = NULL;
     temp = head;
     current = head;
     pos = pos - 1;
@@ -180,19 +191,21 @@ LinkedList::LinkedList()
         delPtr = current;
         current = current->next;
         temp->next = current;
+
         if (delPtr == head)
         {
             head = head->next;
             temp = NULL;
         }
+
         delete delPtr;
     }
     listLength--;
  }
 
-////////////////////////////////////////////////////////
+//-----------------------------------------------------/
 // LinkedList class function to display the list:      /  
-////////////////////////////////////////////////////////
+//-----------------------------------------------------/
 
  void LinkedList::displayList () 
  {
@@ -203,22 +216,24 @@ LinkedList::LinkedList()
     while (current != NULL) 
     {
         cout << current->data;
+
         if (current->next != NULL) 
         {
             cout << " ---> ";
         }
+
         current = current->next;
     }
     cout << endl << endl;
  }
 
-/////////////////////////////////////////////////////////////
-// LinkedList class function to display the list in reverse:/  
-/////////////////////////////////////////////////////////////
+//------------------------------------------------------------/
+// LinkedList class function to display the list in reverse:  /  
+//------------------------------------------------------------/
 
 void LinkedList::displayReverseList ()
 {
-    Node* reverse = NULL;
+    Node_ptr reverse = NULL;
     current = head;
     temp = NULL;
 
@@ -237,16 +252,20 @@ void LinkedList::displayReverseList ()
      while (current != NULL) 
     {
         cout << current->data;
+
         if (current->next != NULL) 
         {
             cout << " ---> ";
         }
+
         current = current->next;
     }
+
     cout << endl << endl;
 
     current = reverse;
     reverse = NULL;
+
     while (current != NULL)
     {
         temp = current->next;
@@ -258,18 +277,18 @@ void LinkedList::displayReverseList ()
     head = reverse;
 }
 
-////////////////////////////////////////////////////////
-// LinkedList class function to get length of the list:/  
-////////////////////////////////////////////////////////
+//------------------------------------------------------------/
+// LinkedList class function to get length of the list:       /
+//------------------------------------------------------------/
 
 int LinkedList::getLength ()
 {
     return listLength;
 }
 
-////////////////////////////////////////////////////////
-// Function to display the main menu:                  /  
-////////////////////////////////////////////////////////
+//------------------------------------------------------------/
+// Function to display the main menu:                         /  
+//------------------------------------------------------------/
 
 void displayMenu ()
 {
@@ -283,9 +302,9 @@ void displayMenu ()
     cout << "Choice → ";
 }
 
-////////////////////////////////////////////////////////
-// Function to add a task to the list:                 /  
-////////////////////////////////////////////////////////
+//------------------------------------------------------------/
+// Function to add a task to the list:                        /  
+//------------------------------------------------------------/
 
 void addTask (LinkedList &Task, string taskname, int position)
 {
@@ -296,6 +315,7 @@ void addTask (LinkedList &Task, string taskname, int position)
         cin.ignore(100, '\n');
         return;
     }
+
     if (!checkPosition (Task, position-1)) 
     {
         cout << endl << "Invalid position!" << endl << endl;
@@ -303,6 +323,7 @@ void addTask (LinkedList &Task, string taskname, int position)
         cin.ignore(100, '\n');
         return;
     }
+
     else
     {
         Task.insertNode(taskname, position);
@@ -310,9 +331,9 @@ void addTask (LinkedList &Task, string taskname, int position)
     }
 }
 
-////////////////////////////////////////////////////////
-// Function to delete a task from the list:            /  
-////////////////////////////////////////////////////////
+//------------------------------------------------------------/
+// Function to delete a task from the list:                   /  
+//------------------------------------------------------------/
 
 void deleteTask (LinkedList &Task, int position)
 {
@@ -329,9 +350,9 @@ void deleteTask (LinkedList &Task, int position)
     Task.deleteNode (position);
 }
 
-////////////////////////////////////////////////////////
-// Function to display number of tasks in the list:    /  
-////////////////////////////////////////////////////////
+//------------------------------------------------------------/
+// Function to display number of tasks in the list:           /  
+//------------------------------------------------------------/
 
 void printCount (LinkedList &Task)
 {
@@ -339,17 +360,19 @@ void printCount (LinkedList &Task)
     cout << endl <<"There are " << len << " task(s) in the list!" << endl << endl;
 }
 
-////////////////////////////////////////////////////////
-// Function to display the tasks in the list:            /  
-////////////////////////////////////////////////////////
+//------------------------------------------------------------/
+// Function to display the tasks in the list:                 /  
+//------------------------------------------------------------/
 
 void displayTasks (LinkedList &Task)
 {
     int len = Task.getLength();
+
     if (len > 0)
     {
         Task.displayList();
     }
+
     else 
     {
         cout << endl << "List is currently empty, add a task to the list!" << endl << endl;
@@ -357,17 +380,19 @@ void displayTasks (LinkedList &Task)
     }
 }
 
-////////////////////////////////////////////////////////
-// Function to display the list in reverse:            /  
-////////////////////////////////////////////////////////
+//------------------------------------------------------------/
+// Function to display the list in reverse:                   /  
+//------------------------------------------------------------/
 
 void displayReverseTasks (LinkedList &Task)
 {
     int len = Task.getLength();
+
     if (len > 0) 
     {
         Task.displayReverseList();
     }
+
     else 
     {
         cout << endl << "List is currently empty, add a task to the list!" << endl << endl;
@@ -375,18 +400,18 @@ void displayReverseTasks (LinkedList &Task)
     }
 }
 
-////////////////////////////////////////////////////////
-// Function to end the program:                        /  
-////////////////////////////////////////////////////////
+//------------------------------------------------------------/
+// Function to end the program:                               /  
+//------------------------------------------------------------/
 
 void terminateProgram()
 {
     cout << endl << "Ending program...Goodbye!" << endl << endl;
 }
 
-////////////////////////////////////////////////////////
-// Function to error check task:                       /  
-////////////////////////////////////////////////////////
+//------------------------------------------------------------/
+// Function to error check task:                              /  
+//------------------------------------------------------------/
 
 bool isValid (string task)
 {
@@ -401,12 +426,14 @@ bool isValid (string task)
     }
 
     bool hasDigit = false;
+
     for (int i = 0; i < task.length(); i++) 
     {
         if (isdigit(task[i]))
         {
             hasDigit = true;
         }
+
         else if (!isalpha(task[i])) 
         {
             hasDigit = false;
@@ -415,9 +442,9 @@ bool isValid (string task)
     return hasDigit;
 }
 
-////////////////////////////////////////////////////////
-// Function to error check position:                   /  
-////////////////////////////////////////////////////////
+//------------------------------------------------------------/
+// Function to error check position:                          /  
+//------------------------------------------------------------/
 
 bool checkPosition ( LinkedList &Task, int position)
 {
@@ -426,16 +453,18 @@ bool checkPosition ( LinkedList &Task, int position)
     return (position >= 0 && position <= len);
 }
 
-////////////////////////////////////////////////////////
-// Functions to capitalize task name:                  /  
-////////////////////////////////////////////////////////
+//------------------------------------------------------------/
+// Functions to capitalize task name:                         /  
+//------------------------------------------------------------/
 
 string capitalize (string task)
 {
   string capitalizedTask;
+
   for (char c: task)
   {
     capitalizedTask += toupper(c);
   }
+
   return capitalizedTask;
 }
