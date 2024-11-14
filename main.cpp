@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-using namespace std;
 
 //-----------------------------------------------------/
 // Program: Task Manager (pointers)                    /
@@ -16,7 +15,7 @@ class LinkedList
 {
     public:
             LinkedList ();
-            void insertNode (string addData, int pos);
+            void insertNode (std::string addData, int pos);
             void deleteNode (int pos);
             void displayList ();
             void displayReverseList ();
@@ -26,7 +25,7 @@ class LinkedList
         private:
                 struct Node
                 {
-                    string data;
+                    std::string data;
                     Node *next;
                 };
                 typedef Node* Node_ptr;
@@ -42,15 +41,15 @@ class LinkedList
 //-----------------------------------------------------/
 
 void displayMenu ();
-void addTask (LinkedList &Task, string taskname, int position);
+void addTask (LinkedList &Task, std::string taskname, int position);
 void deleteTask (LinkedList &Task, int position);
 void printCount (LinkedList &Task);
 void displayTasks (LinkedList &Task);
 void displayReverseTasks (LinkedList &Task);
 void terminateProgram ();
 bool checkPosition ( LinkedList &Task, int position);
-bool isValid (string task);
-string capitalize(string task);
+bool isValid (std::string task);
+std::string capitalize(std::string task);
 
 //-----------------------------------------------------/
 // Main function:                                      /  
@@ -60,33 +59,33 @@ int main ()
 {
     LinkedList Task;
     int choice;
-    string taskname;
+    std::string taskname;
     int position;
 
     do 
     {
         displayMenu ();
-        cin >> choice;
+        std::cin >> choice;
 
-        if (cin.fail())
+        if (std::cin.fail())
         {
-            cin.clear();
-            cin.ignore(100, '\n');
-            cout << endl << "Enter a digit 1 - 6!" << endl << endl;
+            std::cin.clear();
+            std::cin.ignore(100, '\n');
+            std::cout << std::endl << "Enter a digit 1 - 6!" << std::endl << std::endl;
             continue;
         }
 
         switch(choice)
         {
             case 1:
-                    cout << endl << "Enter task name and its position (seperate with one space) ->";
-                    cin >> taskname >> position;
+                    std::cout << std::endl << "Enter task name and its position (seperate with one space) ->";
+                    std::cin >> taskname >> position;
                     addTask (Task, capitalize(taskname), position);
                     break;
 
             case 2:
-                    cout << endl << "Enter a position to delete ->";
-                    cin >> position;
+                    std::cout << std::endl << "Enter a position to delete ->";
+                    std::cin >> position;
                     deleteTask(Task, position);
                     break;
 
@@ -107,7 +106,7 @@ int main ()
                     break;
                     
             default:
-                    cout << endl << "Enter a digit 1 - 6!" << endl;
+                    std::cout << std::endl << "Enter a digit 1 - 6!" << std::endl;
         }
     }
     while (choice != 6);
@@ -131,7 +130,7 @@ LinkedList::LinkedList()
 // LinkedList class function to add to the list:       /  
 //-----------------------------------------------------/
 
- void LinkedList::insertNode (string addData, int pos)
+ void LinkedList::insertNode (std::string addData, int pos)
  {
     Node_ptr n = new Node;
     n->data = addData;
@@ -181,13 +180,13 @@ LinkedList::LinkedList()
 
     if (current == NULL)
     {
-        cout << "Position is not in the list!" << endl << endl;
+        std::cout << "Position is not in the list!" << std::endl << std::endl;
         delete delPtr;
     }
 
     else if (count == pos)
     {
-        cout << current->data << " has been deleted!" << endl << endl;
+        std::cout << current->data << " has been deleted!" << std::endl << std::endl;
         delPtr = current;
         current = current->next;
         temp->next = current;
@@ -210,21 +209,21 @@ LinkedList::LinkedList()
  void LinkedList::displayList () 
  {
     current = head;
-    cout << endl << endl;
-    cout << "          List:            " << endl << endl;
+    std::cout << std::endl << std::endl;
+    std::cout << "          List:            " << std::endl << std::endl;
 
     while (current != NULL) 
     {
-        cout << current->data;
+        std::cout << current->data;
 
         if (current->next != NULL) 
         {
-            cout << " ---> ";
+            std::cout << " ---> ";
         }
 
         current = current->next;
     }
-    cout << endl << endl;
+    std::cout << std::endl << std::endl;
  }
 
 //------------------------------------------------------------/
@@ -246,22 +245,22 @@ void LinkedList::displayReverseList ()
     }
     
     current = reverse;
-    cout << endl << endl;
-     cout << "          Reverse List:    " << endl << endl;
+    std::cout << std::endl << std::endl;
+    std::cout << "          Reverse List:    " << std::endl << std::endl;
 
      while (current != NULL) 
     {
-        cout << current->data;
+        std::cout << current->data;
 
         if (current->next != NULL) 
         {
-            cout << " ---> ";
+            std::cout << " ---> ";
         }
 
         current = current->next;
     }
 
-    cout << endl << endl;
+    std::cout << std::endl << std::endl;
 
     current = reverse;
     reverse = NULL;
@@ -292,42 +291,42 @@ int LinkedList::getLength ()
 
 void displayMenu ()
 {
-    cout << "                   Main Menu:                    "        << endl << endl;
-    cout << "1. Add a task at a particular position p in the task list"        << endl;
-    cout << "2. Delete the task at position q from the task list"              << endl;
-    cout << "3. Print the number of tasks in the task list"                    << endl;
-    cout << "4. Print all tasks in the task list in the order of position"     << endl;
-    cout << "5. Print all tasks in the task list in reverse order of position" << endl;
-    cout << "6. Quit"                                                  << endl << endl;
-    cout << "Choice → ";
+    std::cout << "                   Main Menu:                    "        << std::endl << std::endl;
+    std::cout << "1. Add a task at a particular position p in the task list"             << std::endl;
+    std::cout << "2. Delete the task at position q from the task list"                   << std::endl;
+    std::cout << "3. Print the number of tasks in the task list"                         << std::endl;
+    std::cout << "4. Print all tasks in the task list in the order of position"          << std::endl;
+    std::cout << "5. Print all tasks in the task list in reverse order of position"      << std::endl;
+    std::cout << "6. Quit"                                                  << std::endl << std::endl;
+    std::cout << "Choice → ";
 }
 
 //------------------------------------------------------------/
 // Function to add a task to the list:                        /  
 //------------------------------------------------------------/
 
-void addTask (LinkedList &Task, string taskname, int position)
+void addTask (LinkedList &Task, std::string taskname, int position)
 {
     if (!isValid (taskname)) 
     {
-        cout << endl << "Invalid task name!" << endl << endl;
-        cin.clear();
-        cin.ignore(100, '\n');
+        std::cout << std::endl << "Invalid task name!" << std::endl << std::endl;
+        std::cin.clear();
+        std::cin.ignore(100, '\n');
         return;
     }
 
     if (!checkPosition (Task, position-1)) 
     {
-        cout << endl << "Invalid position!" << endl << endl;
-        cin.clear();
-        cin.ignore(100, '\n');
+        std::cout << std::endl << "Invalid position!" << std::endl << std::endl;
+        std::cin.clear();
+        std::cin.ignore(100, '\n');
         return;
     }
 
     else
     {
         Task.insertNode(taskname, position);
-        cout << endl << taskname << " added to " << position << "!" << endl << endl;
+        std::cout << std::endl << taskname << " added to " << position << "!" << std::endl << std::endl;
     }
 }
 
@@ -341,9 +340,9 @@ void deleteTask (LinkedList &Task, int position)
 
     if (position < 1 || position > len) 
     {
-        cout << endl << "Invalid position!" << endl << endl;
-        cin.clear();
-        cin.ignore(100, '\n');
+        std::cout << std::endl << "Invalid position!" << std::endl << std::endl;
+        std::cin.clear();
+        std::cin.ignore(100, '\n');
         return;
     }
 
@@ -357,7 +356,7 @@ void deleteTask (LinkedList &Task, int position)
 void printCount (LinkedList &Task)
 {
     int len = Task.getLength();
-    cout << endl <<"There are " << len << " task(s) in the list!" << endl << endl;
+    std::cout << std::endl <<"There are " << len << " task(s) in the list!" << std::endl << std::endl;
 }
 
 //------------------------------------------------------------/
@@ -375,7 +374,7 @@ void displayTasks (LinkedList &Task)
 
     else 
     {
-        cout << endl << "List is currently empty, add a task to the list!" << endl << endl;
+        std::cout << std::endl << "List is currently empty, add a task to the list!" << std::endl << std::endl;
         return;
     }
 }
@@ -395,7 +394,7 @@ void displayReverseTasks (LinkedList &Task)
 
     else 
     {
-        cout << endl << "List is currently empty, add a task to the list!" << endl << endl;
+        std::cout << std::endl << "List is currently empty, add a task to the list!" << std::endl << std::endl;
         return;
     }
 }
@@ -406,14 +405,14 @@ void displayReverseTasks (LinkedList &Task)
 
 void terminateProgram()
 {
-    cout << endl << "Ending program...Goodbye!" << endl << endl;
+    std::cout << std::endl << "Ending program...Goodbye!" << std::endl << std::endl;
 }
 
 //------------------------------------------------------------/
 // Function to error check task:                              /  
 //------------------------------------------------------------/
 
-bool isValid (string task)
+bool isValid (std::string task)
 {
     if (task.empty ()) 
     {
@@ -457,9 +456,9 @@ bool checkPosition ( LinkedList &Task, int position)
 // Functions to capitalize task name:                         /  
 //------------------------------------------------------------/
 
-string capitalize (string task)
+std::string capitalize (std::string task)
 {
-  string capitalizedTask;
+  std::string capitalizedTask;
 
   for (char c: task)
   {
