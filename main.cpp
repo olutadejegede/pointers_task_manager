@@ -460,9 +460,9 @@ std::string capitalize (std::string task)
 {
   std::string capitalizedTask;
 
-  for (char c: task)
+  for (int i = 0; i < task.length(); i++)
   {
-    capitalizedTask += toupper(c);
+    capitalizedTask += toupper(task[i]);
   }
 
   return capitalizedTask;
